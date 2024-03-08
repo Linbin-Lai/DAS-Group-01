@@ -27,9 +27,7 @@ library(dplyr)
 library(janitor)
 ```
 
-# Find the suitable glm model
-
-## using family=poisson
+# Find the suitable glm model using family=poisson
 
 ```{r}
 data <- read.csv('dataset01.csv')
@@ -140,50 +138,28 @@ house_data2%>%
   summary()
 ```
 
-The model Total.Number.of.Family.members~Total.Household.Income+Total.Food.Expenditure+Household.Head.Sex+Household.Head.Age+Type.of.Household+Total.Number.of.Family.members+House.Floor.Area+House.Age+Number.of.bedrooms has the lowest AIC which is 7014.1. 
+The model Total.Number.of.Family.members\~Total.Household.Income+Total.Food.Expenditure+Household.Head.Sex+Household.Head.Age+Type.of.Household+Total.Number.of.Family.members+House.Floor.Area+House.Age+Number.of.bedrooms has the lowest AIC which is 7014.1.
 
 After reducing variables which with p-value large than 0.05, the model becomes as follows:
-s
-Total.Number.of.Family.members~Total.Household.Income+Total.Food.Expenditure+Household.Head.Sex+Household.Head.Age+Total.Number.of.Family.members+House.Age
+
+Total.Number.of.Family.members\~Total.Household.Income+Total.Food.Expenditure+Household.Head.Sex+Household.Head.Age+Total.Number.of.Family.members+House.Age
 
 Therefore, these five variables(Total.Household.Income, Total.Food.Expenditure, Household.Head.Sex, Household.Head.Age and House.Age) are significant. So the household related variables(Total.Household.Income, Total.Food.Expenditure, Household.Head.Sex, Household.Head.Age and House.Age)influence the number of people living in a household.
 
+We see that the coefficient for Total.Household.Income is negative, indicating that if a household has more total household income, there will be less number of people living in the household. Similarly, the coefficient for Total.Food.Expenditure is positive, which means as the total food expenditure increase, there will be more people living in the household. The Household.Head.SexMale coefficient is positive, indicating a higher number of people living in a household for male house head. Besides, the coefficient for Household.Head.Age is negative, that is, as household head age increases there will be less member living in the house. Finally, the House.Age coefficient is negative, which means if the house get older, there will be less number of people living in the household.
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-All variables' p-values are less than 0.05, which means these three variables(Total.Household.Income, Total.Food.Expenditure and Household.Head.Sex) are significant. So the household related variables(Total.Household.Income, Total.Food.Expenditure and Household.Head.Sex)influence the number of people living in a household.
-
-We see that the coefficient for Total.Household.Income is negative, indicating that if a household has more total household income, there will be less number of people living in the household. Similarly, the coefficient for Total.Food.Expenditure is positive, which means as the total food expenditure increase, there will be more people living in the household. The Household.Head.SexMale coefficient is positive, indicating a higher number of people living in a household for male house head.
-
-### Odds ratios
+# Odds ratios
 
 ```{r}
-plot_model(mod.data, show.values = TRUE,
+plot_model(house_data2, show.values = TRUE,
 title = "", show.p = FALSE, value.offset = 0.25)
 ```
 
-We interpret the odds ratios as follows: men’s odds of number of family members were 2.25 times those of women. For each unit change for Total.Household.Income and Total.Food.Expenditure the odds of number of family members do not change.
+We interpret the odds ratios as follows: men’s odds of number of family members were 1.25 times those of women. For each unit change for Total.Household.Income, Total.Food.Expenditure,Household.Head.Age and House.Age the odds of number of family members do not change.
 
-### Data visulization: Analysis for each significant explanatory variable with response variable(Total.Number.of.Family.members)
+# Data visulization: Analysis for each significant explanatory variable with response variable(Total.Number.of.Family.members)
 
-#### 1. Total.Household.Income\~Total.Number.of.Family.members
+## 1. Total.Household.Income\~Total.Number.of.Family.members
 
 ```{r}
 ggplot(data = data, aes(x = Total.Number.of.Family.members, y = Total.Household.Income, fill = Total.Number.of.Family.members)) +
@@ -194,7 +170,7 @@ ggplot(data = data, aes(x = Total.Number.of.Family.members, y = Total.Household.
 
 For households which has more members, will have more total household income.
 
-#### 2. Total.Food.Expenditure\~Total.Number.of.Family.members
+## 2. Total.Food.Expenditure\~Total.Number.of.Family.members
 
 ```{r}
 ggplot(data = data, aes(x = Total.Number.of.Family.members, y = Total.Food.Expenditure, fill = Total.Number.of.Family.members)) +
@@ -205,7 +181,7 @@ ggplot(data = data, aes(x = Total.Number.of.Family.members, y = Total.Food.Expen
 
 For households which has more members, will have more total food expenditure.
 
-#### 3. Household.Head.Sex\~Total.Number.of.Family.members
+## 3. Household.Head.Sex\~Total.Number.of.Family.members
 
 ```{r}
 data %>%
