@@ -31,7 +31,7 @@ library(janitor)
 
 ```{r}
 data <- read.csv('dataset01.csv')
-house_data <- glm(Total.Number.of.Family.members~
+house_data1 <- glm(Total.Number.of.Family.members~
                   Total.Household.Income+
                   Total.Food.Expenditure+
                   Household.Head.Sex+
@@ -42,7 +42,7 @@ house_data <- glm(Total.Number.of.Family.members~
                   Number.of.bedrooms+
                   Electricity,
                 family = poisson, data=data)
-house_data%>%
+house_data1%>%
   summary()
 ```
 
@@ -66,7 +66,7 @@ house_data2%>%
 The variable Number.of.bedrooms has p-value greater than 0.05, so delate this variable and refit the model.
 
 ```{r}
-house_data2 <- glm(Total.Number.of.Family.members~
+house_data3 <- glm(Total.Number.of.Family.members~
                   Total.Household.Income+
                   Total.Food.Expenditure+
                   Household.Head.Sex+
@@ -75,14 +75,14 @@ house_data2 <- glm(Total.Number.of.Family.members~
                   Total.Number.of.Family.members+
                   House.Floor.Area+House.Age,
                 family = poisson, data=data)
-house_data2%>%
+house_data3%>%
   summary()
 ```
 
 The variable Type.of.Household has p-value greater than 0.05, so delate this variable and refit the model.
 
 ```{r}
-house_data2 <- glm(Total.Number.of.Family.members~
+house_data4 <- glm(Total.Number.of.Family.members~
                   Total.Household.Income+
                   Total.Food.Expenditure+
                   Household.Head.Sex+
@@ -90,14 +90,14 @@ house_data2 <- glm(Total.Number.of.Family.members~
                   Total.Number.of.Family.members+
                   House.Floor.Area+House.Age,
                 family = poisson, data=data)
-house_data2%>%
+house_data4%>%
   summary()
 ```
 
 The variable Household.Head.Age has p-value greater than 0.05, so delate this variable and refit the model.
 
 ```{r}
-house_data2 <- glm(Total.Number.of.Family.members~
+house_data5 <- glm(Total.Number.of.Family.members~
                   Total.Household.Income+
                   Total.Food.Expenditure+
                   Household.Head.Sex+
@@ -105,38 +105,25 @@ house_data2 <- glm(Total.Number.of.Family.members~
                   House.Floor.Area+
                   House.Age,
                 family = poisson, data=data)
-house_data2%>%
+house_data5%>%
   summary()
 ```
 
 The variable House.Floor.Area has p-value greater than 0.05, so delate this variable and refit the model.
 
 ```{r}
-house_data2 <- glm(Total.Number.of.Family.members~
+house_data6 <- glm(Total.Number.of.Family.members~
                   Total.Household.Income+
                   Total.Food.Expenditure+
                   Household.Head.Sex+
                   Total.Number.of.Family.members+
                   House.Age,
                 family = poisson, data=data)
-house_data2%>%
+house_data6%>%
   summary()
 ```
 
-```{r}
-house_data2 <- glm(Total.Number.of.Family.members~
-                  Total.Household.Income+
-                  Total.Food.Expenditure+
-                  Household.Head.Sex+
-                  Household.Head.Age+
-                  Type.of.Household+
-                  Total.Number.of.Family.members+
-                  House.Floor.Area+House.Age+
-                  Number.of.bedrooms,
-                family = poisson, data=data)
-house_data2%>%
-  summary()
-```
+
 
 The model Total.Number.of.Family.members\~Total.Household.Income+Total.Food.Expenditure+Household.Head.Sex+Household.Head.Age+Type.of.Household+Total.Number.of.Family.members+House.Floor.Area+House.Age+Number.of.bedrooms has the lowest AIC which is 7014.1.
 
@@ -162,6 +149,7 @@ We interpret the odds ratios as follows: men’s odds of number of family member
 ## 1. Total.Household.Income\~Total.Number.of.Family.members
 
 ```{r}
+data$Total.Number.of.Family.members <- as.factor(data$Total.Number.of.Family.members)
 ggplot(data = data, aes(x = Total.Number.of.Family.members, y = Total.Household.Income, fill = Total.Number.of.Family.members)) +
   geom_boxplot() +
   labs(x = "Total.Number.of.Family.members", y = "Total.Household.Income") +
