@@ -6,7 +6,13 @@ format:
   html:
     embed-resources: true
     code-tools: true
-  pdf: default
+  pdf: 
+    keep-tex: true
+    include-in-header: 
+       text: |
+         \usepackage{fvextra}
+         \DefineVerbatimEnvironment{Highlighting}{Verbatim}{breaklines,commandchars=\\\{\}}
+         \DefineVerbatimEnvironment{OutputCode}{Verbatim}{breaklines,commandchars=\\\{\}}
 editor_options:
   chunk_output_type: inline
 execute:
