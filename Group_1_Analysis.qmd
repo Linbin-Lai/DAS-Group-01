@@ -176,7 +176,7 @@ data %>%
   tabyl(Household.Head.Sex, Total.Number.of.Family.members) %>%
   adorn_percentages() %>%
   adorn_pct_formatting() %>%
-  adorn_ns() # To show original counts
+  adorn_ns()
 ```
 
 ```{r}
