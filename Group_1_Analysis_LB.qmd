@@ -1,0 +1,205 @@
+---
+title: "Group_1_Analysis_LB"
+author: "Linbin Lai"
+number-sections: true
+format:
+  html:
+    embed-resources: true
+    code-tools: true
+  pdf: 
+    keep-tex: true
+    include-in-header: 
+       text: |
+         \usepackage{fvextra}
+         \DefineVerbatimEnvironment{Highlighting}{Verbatim}{breaklines,commandchars=\\\{\}}
+         \DefineVerbatimEnvironment{OutputCode}{Verbatim}{breaklines,commandchars=\\\{\}}
+editor_options:
+  chunk_output_type: console
+execute:
+  echo: true
+  eval: true
+  warning: false
+  message: false
+---
+
+## Data Analysis
+
+### Load Package and Document
+
+```{r}
+rm(list = ls())
+library(tidyverse)
+library(moderndive)
+library(gapminder)
+library(sjPlot)
+library(stats)
+library(jtools)
+library(MASS)
+library(dplyr)
+library(janitor)
+library(tidyr)
+FIES <- read.csv("dataset01.csv")
+unique(FIES$Region)#ignore the region column
+FIES <- FIES %>%
+  dplyr::select(Total.Number.of.Family.members, Total.Household.Income, Total.Food.Expenditure, Household.Head.Sex, Household.Head.Age, Type.of.Household, House.Floor.Area, House.Age, Number.of.bedrooms, Electricity)
+FIES$Total.Number.of.Family.members <- as.factor(FIES$Total.Number.of.Family.members)
+FIES$Household.Head.Sex <- as.factor(FIES$Household.Head.Sex)
+FIES$Type.of.Household <- as.factor(FIES$Type.of.Household)
+FIES$Electricity <- as.factor(FIES$Electricity)
+levels(FIES$Electricity) <- c("No", "Yes")
+```
+
+### Analyze each element individually
+
+#### `Total.Number.of.Family.members` vs `Total.Household.Income`
+
+```{r}
+#| label: fig-boxplot1
+#| fig-subcap: Annual household income by Number of family members.
+ggplot(data = FIES, aes(x = Total.Number.of.Family.members, y = Total.Household.Income, fill = Total.Number.of.Family.members)) + 
+  geom_boxplot() + 
+  labs(x = "Number of people living in the house.", y = "Annual household income (in Philippine peso)") + 
+  theme(legend.position = "none")
+```
+
+From the boxplot, we can find that median annual income appears to be similar for most household sizes (number of people), particularly from one to six person households. Moreover, as household size increases, the number of households with unusually high incomes decreases.
+
+#### `Total.Number.of.Family.members` vs `Total.Food.Expenditure`
+
+```{r}
+#| label: fig-boxplot2
+#| fig-subcap: Annual expenditure by the household on food by Number of family members.
+ggplot(data = FIES, aes(x = Total.Number.of.Family.members, y = Total.Household.Income, fill = Total.Number.of.Family.members)) + 
+  geom_boxplot() + 
+  labs(x = "Number of people living in the house.", y = "Annual expenditure by the household on food") + 
+  theme(legend.position = "none")
+```
+
+From this boxplot, median food expenditures appear to increase gradually as household size increases, especially from one to nine person households. There are fewer data points for larger households (e.g. more than 10 people), as can be seen from the width of the boxplot, with smaller box widths indicating smaller sample sizes for these household sizes.
+
+#### `Total.Number.of.Family.members` vs `Household.Head.Sex`
+
+```{r}
+FIES %>%
+  tabyl(Household.Head.Sex, Total.Number.of.Family.members) %>%
+  adorn_percentages() %>%
+  adorn_pct_formatting() %>%
+  adorn_ns() #To show original counts
+```
+
+```{r}
+#| label: fig-barplot1
+#| fig-subcap: Barplot of Number of people living in the house by Head of the households sex.
+ggplot(data = FIES, aes(x = Total.Number.of.Family.members, group = Household.Head.Sex)) + 
+  geom_bar(aes(y = ..prop.., fill = Household.Head.Sex), stat = "count", position = "dodge") + 
+  labs(x = "Number of people living in the house", y = "Proportion")
+```
+
+For different family sizes, families headed by men generally account for a larger proportion, especially in families with three to seven people. Among one person, two person and three person households, the proportion of female-headed households is higher than the male-headed households.
+
+#### `Total.Number.of.Family.members` vs `Household.Head.Age`
+
+```{r}
+#| label: fig-boxplot3
+#| fig-subcap: Head of the households age by Number of family members.
+ggplot(data = FIES, aes(x = Total.Number.of.Family.members, y = Household.Head.Age, fill = Total.Number.of.Family.members)) + 
+  geom_boxplot() + 
+  labs(x = "Number of people living in the house.", y = "Head of the households age (in years)") + 
+  theme(legend.position = "none")
+```
+
+For different family sizes, the median age of the household head is relatively stable among different family sizes, mainly concentrated around 50 years old. So I think there is no obvious correlation trend between the age of the household head and the size of the family.
+
+#### `Total.Number.of.Family.members` vs `Type.of.Household`
+
+```{r}
+#| label: fig-barplot2
+#| fig-subcap: Barplot of Number of people living in the house by the relationship between the group of people living in the house.
+ggplot(data = FIES, aes(x = Total.Number.of.Family.members, group = Type.of.Household)) + 
+  geom_bar(aes(y = ..prop.., fill = Type.of.Household), stat = "count", position = "dodge") + 
+  labs(x = "Number of people living in the house", y = "Proportion")
+```
+
+There is a correlation between household type and the number of people living in the house, with extended households being more common in medium and large households, while single households predominate among small households. And for two or More Non-related Persons/Members, it has highly proportion in two person and three person household.
+
+#### `Total.Number.of.Family.members` vs `House.Floor.Area`
+
+```{r}
+#| label: fig-boxplot4
+#| fig-subcap: Floor area of the house by Number of family members.
+ggplot(data = FIES, aes(x = Total.Number.of.Family.members, y = House.Floor.Area, fill = Total.Number.of.Family.members)) + 
+  geom_boxplot() + 
+  labs(x = "Number of people living in the house.", y = "Floor area of the house (in meter square)") +
+  theme(legend.position = "none")
+```
+
+Median house floor area appears to be relatively stable for most number of people living in the house, without increasing significantly as the number of residents increases. The graph shows a large number of outliers, indicating that some households have homes that are well outside the typical range for similar household sizes.Therefore, house floor area does not appear to increase significantly with number of people living in the house.
+
+#### `Total.Number.of.Family.members` vs `House.Age`
+
+```{r}
+#| label: fig-boxplot5
+#| fig-subcap: Age of the building by Number of family members.
+ggplot(data = FIES, aes(x = Total.Number.of.Family.members, y = House.Age, fill = Total.Number.of.Family.members)) + 
+  geom_boxplot() + 
+  labs(x = "Number of people living in the house.", y = "Age of the building (in years)") +
+  scale_fill_brewer(palette = "Set3") +#change to different color
+  theme(legend.position = "none")
+```
+
+The distribution range of house ages is relatively consistent, suggesting that the distribution of house ages is similar across household sizes. In conclude, there does not appear to be a direct relationship between house age and household size, with the median age remaining relatively stable across household sizes.
+
+#### `Total.Number.of.Family.members` vs `Number.of.bedrooms`
+
+```{r}
+#| label: fig-boxplot6
+#| fig-subcap: Number of bedrooms in the house by Number of family members.
+ggplot(data = FIES, aes(x = Total.Number.of.Family.members, y = Number.of.bedrooms, fill = Total.Number.of.Family.members)) + 
+  geom_boxplot() + 
+  labs(x = "Number of people living in the house.", y = "Number of bedrooms in the house") + 
+  theme(legend.position = "none")
+```
+
+As the number of residents increases, the median number of bedrooms gradually increases, but this growth is not linear.
+
+#### `Total.Number.of.Family.members` vs `Electricity`
+
+```{r}
+#| label: fig-barplot3
+#| fig-subcap: Barplot of Number of people living in the house by the electricity.
+ggplot(data = FIES, aes(x = Total.Number.of.Family.members, group = Electricity)) + 
+  geom_bar(aes(y = ..prop.., fill = Electricity), stat = "count", position = "dodge") + 
+  scale_fill_brewer(palette = "Set1") +
+  labs(x = "Number of people living in the house", y = "Proportion")
+```
+
+For most of the families, regardless of size, they have electricity. Among small scale households (especially single person households), the proportion of households without electricity is relatively high. As household size increases, the proportion of households without electricity gradually decreases. In larger households (seven people and above), almost all households have electricity supply.
+
+### Summary of Analyze each element individually
+
+Overall, according to the separate analysis of explanatory variables, the variables that should be retained for now are:Annual household income, Annual expenditure by the household on food, Head of the households sex, Relationship between the group of people living in the house, Number of bedrooms in the house and Electricity.
+
+### Analysis of the overall part
+
+```{r}
+FIES <- FIES %>%
+  dplyr::select(Total.Number.of.Family.members, Total.Household.Income, Total.Food.Expenditure, Household.Head.Sex, Type.of.Household, Number.of.bedrooms, Electricity)
+
+FIES$Total.Number.of.Family.members <- as.numeric(as.character(FIES$Total.Number.of.Family.members))
+
+model.FIES <- glm(Total.Number.of.Family.members ~ Total.Household.Income + Total.Food.Expenditure + Household.Head.Sex + Type.of.Household + Number.of.bedrooms + Electricity, data = FIES, family = poisson(link = "log"))
+
+model.FIES %>%
+  summary()
+```
+
+In examining the factors that affect the number of people living in a household, we observe that the coefficient for households headed by a male (Household.Head.SexMale) is positive, indicating a higher number of family members in households with male heads compared to female heads. The coefficients for households identified as Single Family (Type.of.HouseholdSingle Family) and for those with Two or More Nonrelated Persons/Members are negative, reflecting a lower count of family members in comparison with other types of households. Notably, the negative coefficient for single-family households is more substantial than for households with nonrelated members, suggesting that the expected number of people is significantly lower in single-family settings. Additionally, the coefficient for the Number of bedrooms is negative, suggesting that as the number of bedrooms in a house increases, the count of family members slightly decreases. This may indicate that with more available space, family members tend to spread out, or it could reflect a preference for smaller families in larger homes. The effects of Total Household Income and Total Food Expenditure are in opposite directions, with the former showing a slight decrease and the latter a slight increase in the count of family members with higher expenditures, implying that financial factors have nuanced impacts on household size. Each of these effects is statistically significant, pointing to a complex interplay of gender, household composition, and economic factors in determining family size.
+
+```{r}
+#| label: fig-plot
+#| fig-subcap: Rate ratios plot.
+plot_model(model.FIES, show.values = TRUE,
+           title = "", show.p = FALSE, value.offset = 0.25)
+```
+
+From total household income and total food expenditure, their rate ratios is exactly 1.00, they prove no effect on the number of family members. Household Head Sex's rate ratio is 1.28, which suggests that households headed by males have a 28% increase in the expected count of family members compared to households headed by females, assuming all other factors are held constant. Type of Household has the rate ratios about 0.72 indicates that single-family households have a 28% decrease in the expected count of family members compared to the reference household type (likely non-single family households). And for type of household With an rate ratios of 0.87, this suggests that households consisting of two or more non-related persons/members have a 13% decrease in the expected count of family members compared to the reference category. Number of Bedrooms suggesting a small decrease of 3% in the expected count of family members for each additional bedroom in the household.
