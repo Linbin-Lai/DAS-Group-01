@@ -123,8 +123,6 @@ house_data6%>%
   summary()
 ```
 
-
-
 The model Total.Number.of.Family.members\~Total.Household.Income+Total.Food.Expenditure+Household.Head.Sex+Household.Head.Age+Type.of.Household+Total.Number.of.Family.members+House.Floor.Area+House.Age+Number.of.bedrooms has the lowest AIC which is 7014.1.
 
 After reducing variables which with p-value large than 0.05, the model becomes as follows:
@@ -142,34 +140,24 @@ plot_model(house_data2, show.values = TRUE,
 title = "", show.p = FALSE, value.offset = 0.25)
 ```
 
-We interpret the odds ratios as follows: men’s odds of number of family members were 1.25 times those of women. For each unit change for Total.Household.Income, Total.Food.Expenditure,Household.Head.Age and House.Age the odds of number of family members do not change.
+We interpret the odds ratios as follows: men’s odds of number of family members were 1.25 times those of women. For each unit change for Total.Household.Income, Total.Food.Expenditure,Household.Head.Age and House.Age the odds of number of family members do not change, which means they prove no effect on the number of family members.
 
-# Data visulization: Analysis for each significant explanatory variable with response variable(Total.Number.of.Family.members)
+Therefore, the best model is:
 
-## 1. Total.Household.Income\~Total.Number.of.Family.members
+$$Total.Number.of.Family.members=\beta\_0 + \beta*1* \cdot \mathbb{I}{\text{Household.Head.SexFemale}}
 
-```{r}
-data$Total.Number.of.Family.members <- as.factor(data$Total.Number.of.Family.members)
-ggplot(data = data, aes(x = Total.Number.of.Family.members, y = Total.Household.Income, fill = Total.Number.of.Family.members)) +
-  geom_boxplot() +
-  labs(x = "Total.Number.of.Family.members", y = "Total.Household.Income") +
-  theme(legend.position = "none")
-```
+=(1.533e+00)-(2.212e-01)\cdot \mathbb{I}\_{\text{Household.Head.SexFemale}}$$
 
-For households which has more members, will have more total household income.
+$\mathbb{I}_i$ is is an indicator function such that representing each gender such that $$\mathbb{I}_i=\left\{
+\begin{array}{ll}
+1 ~~~ \mbox{if the household head is female},\\
+0 ~~~ \mbox{Otherwise}.\\
+\end{array}
+\right.$$
 
-## 2. Total.Food.Expenditure\~Total.Number.of.Family.members
+# Data visualization: Analysis for significant explanatory variable(Household.Head.Sex) with response variable(Total.Number.of.Family.members)
 
-```{r}
-ggplot(data = data, aes(x = Total.Number.of.Family.members, y = Total.Food.Expenditure, fill = Total.Number.of.Family.members)) +
-  geom_boxplot() +
-  labs(x = "Total.Number.of.Family.members", y = "Total.Food.Expenditure") +
-  theme(legend.position = "none")
-```
-
-For households which has more members, will have more total food expenditure.
-
-## 3. Household.Head.Sex\~Total.Number.of.Family.members
+## Household.Head.Sex\~Total.Number.of.Family.members
 
 ```{r}
 data %>%
