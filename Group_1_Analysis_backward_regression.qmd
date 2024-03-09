@@ -1,0 +1,176 @@
+---
+title: "Group_1_Analysis_backward_regression"
+author: "Ying Yang"
+number-sections: true
+format:
+  html:
+    embed-resources: true
+    code-tools: true
+  pdf: default
+editor_options:
+  chunk_output_type: inline
+execute:
+  echo: true
+  eval: true
+  warning: false
+  message: false
+---
+
+```{r}
+library(tidyverse)
+library(moderndive)
+library(gapminder)
+library(sjPlot)
+library(stats)
+library(jtools)
+library(dplyr)
+library(janitor)
+```
+
+# Find the suitable glm model using family=poisson
+
+```{r}
+data <- read.csv('dataset01.csv')
+house_data1 <- glm(Total.Number.of.Family.members~
+                  Total.Household.Income+
+                  Total.Food.Expenditure+
+                  Household.Head.Sex+
+                  Household.Head.Age+
+                  Type.of.Household+
+                  Total.Number.of.Family.members+
+                  House.Floor.Area+House.Age+
+                  Number.of.bedrooms+
+                  Electricity,
+                family = poisson, data=data)
+house_data1%>%
+  summary()
+```
+
+The variable Electricity has p-value greater than 0.05, so delate this variable and refit the model.
+
+```{r}
+house_data2 <- glm(Total.Number.of.Family.members~
+                  Total.Household.Income+
+                  Total.Food.Expenditure+
+                  Household.Head.Sex+
+                  Household.Head.Age+
+                  Type.of.Household+
+                  Total.Number.of.Family.members+
+                  House.Floor.Area+House.Age+
+                  Number.of.bedrooms,
+                family = poisson, data=data)
+house_data2%>%
+  summary()
+```
+
+The variable Number.of.bedrooms has p-value greater than 0.05, so delate this variable and refit the model.
+
+```{r}
+house_data3 <- glm(Total.Number.of.Family.members~
+                  Total.Household.Income+
+                  Total.Food.Expenditure+
+                  Household.Head.Sex+
+                  Household.Head.Age+
+                  Type.of.Household+
+                  Total.Number.of.Family.members+
+                  House.Floor.Area+House.Age,
+                family = poisson, data=data)
+house_data3%>%
+  summary()
+```
+
+The variable Type.of.Household has p-value greater than 0.05, so delate this variable and refit the model.
+
+```{r}
+house_data4 <- glm(Total.Number.of.Family.members~
+                  Total.Household.Income+
+                  Total.Food.Expenditure+
+                  Household.Head.Sex+
+                  Household.Head.Age+
+                  Total.Number.of.Family.members+
+                  House.Floor.Area+House.Age,
+                family = poisson, data=data)
+house_data4%>%
+  summary()
+```
+
+The variable Household.Head.Age has p-value greater than 0.05, so delate this variable and refit the model.
+
+```{r}
+house_data5 <- glm(Total.Number.of.Family.members~
+                  Total.Household.Income+
+                  Total.Food.Expenditure+
+                  Household.Head.Sex+
+                  Total.Number.of.Family.members+
+                  House.Floor.Area+
+                  House.Age,
+                family = poisson, data=data)
+house_data5%>%
+  summary()
+```
+
+The variable House.Floor.Area has p-value greater than 0.05, so delate this variable and refit the model.
+
+```{r}
+house_data6 <- glm(Total.Number.of.Family.members~
+                  Total.Household.Income+
+                  Total.Food.Expenditure+
+                  Household.Head.Sex+
+                  Total.Number.of.Family.members+
+                  House.Age,
+                family = poisson, data=data)
+house_data6%>%
+  summary()
+```
+
+The model Total.Number.of.Family.members\~Total.Household.Income+Total.Food.Expenditure+Household.Head.Sex+Household.Head.Age+Type.of.Household+Total.Number.of.Family.members+House.Floor.Area+House.Age+Number.of.bedrooms has the lowest AIC which is 7014.1.
+
+After reducing variables which with p-value large than 0.05, the model becomes as follows:
+
+Total.Number.of.Family.members\~Total.Household.Income+Total.Food.Expenditure+Household.Head.Sex+Household.Head.Age+Total.Number.of.Family.members+House.Age
+
+Therefore, these five variables(Total.Household.Income, Total.Food.Expenditure, Household.Head.Sex, Household.Head.Age and House.Age) are significant. So the household related variables(Total.Household.Income, Total.Food.Expenditure, Household.Head.Sex, Household.Head.Age and House.Age)influence the number of people living in a household.
+
+We see that the coefficient for Total.Household.Income is negative, indicating that if a household has more total household income, there will be less number of people living in the household. Similarly, the coefficient for Total.Food.Expenditure is positive, which means as the total food expenditure increase, there will be more people living in the household. The Household.Head.SexMale coefficient is positive, indicating a higher number of people living in a household for male house head. Besides, the coefficient for Household.Head.Age is negative, that is, as household head age increases there will be less member living in the house. Finally, the House.Age coefficient is negative, which means if the house get older, there will be less number of people living in the household.
+
+# Odds ratios
+
+```{r}
+plot_model(house_data2, show.values = TRUE,
+title = "", show.p = FALSE, value.offset = 0.25)
+```
+
+We interpret the odds ratios as follows: men’s odds of number of family members were 1.25 times those of women. For each unit change for Total.Household.Income, Total.Food.Expenditure,Household.Head.Age and House.Age the odds of number of family members do not change, which means they prove no effect on the number of family members.
+
+Therefore, the best model is:
+
+$$Total.Number.of.Family.members=\beta\_0 + \beta*1* \cdot \mathbb{I}{\text{Household.Head.SexFemale}}
+
+=(1.533e+00)-(2.212e-01)\cdot \mathbb{I}\_{\text{Household.Head.SexFemale}}$$
+
+$\mathbb{I}_i$ is is an indicator function such that representing each gender such that $$\mathbb{I}_i=\left\{
+\begin{array}{ll}
+1 ~~~ \mbox{if the household head is female},\\
+0 ~~~ \mbox{Otherwise}.\\
+\end{array}
+\right.$$
+
+# Data visualization: Analysis for significant explanatory variable(Household.Head.Sex) with response variable(Total.Number.of.Family.members)
+
+## Household.Head.Sex\~Total.Number.of.Family.members
+
+```{r}
+data %>%
+  tabyl(Household.Head.Sex, Total.Number.of.Family.members) %>%
+  adorn_percentages() %>%
+  adorn_pct_formatting() %>%
+  adorn_ns()
+```
+
+```{r}
+ggplot(data = data, aes(x = Total.Number.of.Family.members, group = Household.Head.Sex)) +
+  geom_bar(aes(y = after_stat(prop), fill = Household.Head.Sex), stat = "count", position = "dodge") +
+  labs(x = "Total.Number.of.Family.members", y = "Proportion")
+```
+
+There is a clear pattern that female has higher proportion in smaller family size than male.
