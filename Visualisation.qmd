@@ -1,0 +1,129 @@
+---
+title: "Group_1_Analysis"
+author: "Zhenkai Geng"
+number-sections: true
+format:
+  html:
+    embed-resources: true
+    code-tools: true
+  pdf: default
+editor_options:
+  chunk_output_type: inline
+execute:
+  echo: true
+  eval: true
+  warning: false
+  message: false
+---
+
+```{r}
+library(tidyverse)
+library(moderndive)
+library(gapminder)
+library(sjPlot)
+library(stats)
+library(jtools)
+library(janitor)
+```
+
+```{r}
+household <- read.csv("dataset01.csv")
+household$Household.Head.Sex <- as.factor(household$Household.Head.Sex)
+household$Type.of.Household <- as.factor(household$Type.of.Household)
+household$Total.Number.of.Family.members <- as.factor(household$Total.Number.of.Family.members)
+levels(household$Total.Number.of.Family.members) <- c("1","2","3","4","5","6","7","8","9","10","11","12","13","14","15")
+household$Number.of.bedrooms <- as.factor(household$Number.of.bedrooms)
+household$Electricity <- as.factor(household$Electricity)
+```
+
+```{r}
+ggplot(data = household, aes(x = Total.Number.of.Family.members, y = Total.Household.Income, fill = Total.Number.of.Family.members, group = Total.Number.of.Family.members)) +
+geom_boxplot() +
+labs(x = "the number of people living in a household", y = "Annual household income")
+theme(legend.position = "none")
+```
+
+```{r}
+ggplot(data = household, aes(x = Total.Number.of.Family.members, y = Total.Food.Expenditure, fill = Total.Number.of.Family.members, group = Total.Number.of.Family.members)) +
+geom_boxplot() +
+labs(x = "the number of people living in a household", y = "Annual expenditure by the household on food")
+theme(legend.position = "none")
+```
+
+```{r}
+household %>%
+tabyl(Household.Head.Sex, Total.Number.of.Family.members) %>%
+adorn_percentages() %>%
+adorn_pct_formatting() %>%
+adorn_ns() # To show original counts
+```
+
+```{r}
+ggplot(data = household, aes(x = Total.Number.of.Family.members, group = Household.Head.Sex)) +
+geom_bar(aes(y = ..prop.., fill = Household.Head.Sex), stat = "count", position = "dodge") +
+labs(x = "the number of people living in a household", y = "Proportion")
+```
+
+```{r}
+ggplot(data = household, aes(x = Total.Number.of.Family.members, y = Household.Head.Age, fill = Total.Number.of.Family.members, group = Total.Number.of.Family.members)) +
+geom_boxplot() +
+labs(x = "the number of people living in a household", y = "Head of the households age")
+theme(legend.position = "none")
+```
+
+```{r}
+household %>%
+tabyl(Type.of.Household, Total.Number.of.Family.members) %>%
+adorn_percentages() %>%
+adorn_pct_formatting() %>%
+adorn_ns() # To show original counts
+```
+
+```{r}
+ggplot(data = household, aes(x = Total.Number.of.Family.members, group = Type.of.Household)) +
+geom_bar(aes(y = ..prop.., fill = Type.of.Household), stat = "count", position = "dodge") +
+labs(x = "the number of people living in a household", y = "Proportion")
+```
+
+```{r}
+ggplot(data = household, aes(x = Total.Number.of.Family.members, y = House.Floor.Area, fill = Total.Number.of.Family.members, group = Total.Number.of.Family.members)) +
+geom_boxplot() +
+labs(x = "the number of people living in a household", y = "Floor area of the house")
+theme(legend.position = "none")
+```
+
+```{r}
+ggplot(data = household, aes(x = Total.Number.of.Family.members, y = House.Age, fill = Total.Number.of.Family.members, group = Total.Number.of.Family.members)) +
+geom_boxplot() +
+labs(x = "the number of people living in a household", y = "Age of the building")
+theme(legend.position = "none")
+```
+
+```{r}
+household %>%
+tabyl(Number.of.bedrooms, Total.Number.of.Family.members) %>%
+adorn_percentages() %>%
+adorn_pct_formatting() %>%
+adorn_ns() # To show original counts
+```
+
+```{r}
+ggplot(data = household, aes(x = Total.Number.of.Family.members, group = Number.of.bedrooms)) +
+geom_bar(aes(y = ..prop.., fill = Number.of.bedrooms), stat = "count", position = "dodge") +
+labs(x = "the number of people living in a household", y = "Proportion")
+```
+
+```{r}
+household %>%
+tabyl(Electricity, Total.Number.of.Family.members) %>%
+adorn_percentages() %>%
+adorn_pct_formatting() %>%
+adorn_ns() # To show original counts
+```
+
+```{r}
+ggplot(data = household, aes(x = Total.Number.of.Family.members, group = Electricity)) +
+geom_bar(aes(y = ..prop.., fill = Electricity), stat = "count", position = "dodge") +
+labs(x = "the number of people living in a household", y = "Proportion")
+```
+
