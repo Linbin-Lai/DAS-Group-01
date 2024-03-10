@@ -27,7 +27,7 @@ library(dplyr)
 library(janitor)
 ```
 
-# Find the suitable glm model using family=poisson
+# 1.Find the suitable generalized linear model using family=poisson(Backward regression)
 
 ```{r}
 data <- read.csv('dataset01.csv')
@@ -46,7 +46,7 @@ house_data1%>%
   summary()
 ```
 
-The variable Electricity has p-value greater than 0.05, so delate this variable and refit the model.
+The variable Electricity has p-value greater than 0.05, so delete this variable and refit the model.
 
 ```{r}
 house_data2 <- glm(Total.Number.of.Family.members~
@@ -63,7 +63,7 @@ house_data2%>%
   summary()
 ```
 
-The variable Number.of.bedrooms has p-value greater than 0.05, so delate this variable and refit the model.
+The variable Number.of.bedrooms has p-value greater than 0.05, so delete this variable and refit the model.
 
 ```{r}
 house_data3 <- glm(Total.Number.of.Family.members~
@@ -79,7 +79,7 @@ house_data3%>%
   summary()
 ```
 
-The variable Type.of.Household has p-value greater than 0.05, so delate this variable and refit the model.
+The variable Type.of.Household has p-value greater than 0.05, so delete this variable and refit the model.
 
 ```{r}
 house_data4 <- glm(Total.Number.of.Family.members~
@@ -94,7 +94,7 @@ house_data4%>%
   summary()
 ```
 
-The variable Household.Head.Age has p-value greater than 0.05, so delate this variable and refit the model.
+The variable Household.Head.Age has p-value greater than 0.05, so delete this variable and refit the model.
 
 ```{r}
 house_data5 <- glm(Total.Number.of.Family.members~
@@ -109,7 +109,7 @@ house_data5%>%
   summary()
 ```
 
-The variable House.Floor.Area has p-value greater than 0.05, so delate this variable and refit the model.
+The variable House.Floor.Area has p-value greater than 0.05, so delete this variable and refit the model.
 
 ```{r}
 house_data6 <- glm(Total.Number.of.Family.members~
@@ -140,13 +140,13 @@ plot_model(house_data2, show.values = TRUE,
 title = "", show.p = FALSE, value.offset = 0.25)
 ```
 
-We interpret the odds ratios as follows: men’s odds of number of family members were 1.25 times those of women. For each unit change for Total.Household.Income, Total.Food.Expenditure,Household.Head.Age and House.Age the odds of number of family members do not change, which means they prove no effect on the number of family members.
+We interpret the odds ratios as follows: women’s odds of number of family members were 0.8 times those of man. For each unit change for Total.Household.Income, Total.Food.Expenditure,Household.Head.Age and House.Age the odds of number of family members do not change, which means they prove no effect on the number of family members.
 
 Therefore, the best model is:
 
-$$Total.Number.of.Family.members=\beta\_0 + \beta*1* \cdot \mathbb{I}{\text{Household.Head.SexFemale}}
+$$Total.Number.of.Family.members=\beta_0 + \beta_1* \cdot \mathbb{I}_{\text{Household.Head.SexFemale}}$$
+$$=(1.533e+00)-(2.212e-01)\cdot \mathbb{I}_{\text{Household.Head.SexFemale}}$$
 
-=(1.533e+00)-(2.212e-01)\cdot \mathbb{I}\_{\text{Household.Head.SexFemale}}$$
 
 $\mathbb{I}_i$ is is an indicator function such that representing each gender such that $$\mathbb{I}_i=\left\{
 \begin{array}{ll}
@@ -174,3 +174,111 @@ ggplot(data = data, aes(x = Total.Number.of.Family.members, group = Household.He
 ```
 
 There is a clear pattern that female has higher proportion in smaller family size than male.
+
+# 2.Find the suitable Negative Binomial generalized linear model(Backward regression)
+
+```{r}
+library(MASS)
+data$Total.Number.of.Family.members <- as.numeric(as.character(data$Total.Number.of.Family.members))
+housenb_data1 <- glm.nb(Total.Number.of.Family.members~
+                  Total.Household.Income+
+                  Total.Food.Expenditure+
+                  Household.Head.Sex+
+                  Household.Head.Age+
+                  Type.of.Household+
+                  Total.Number.of.Family.members+
+                  House.Floor.Area+House.Age+
+                  Number.of.bedrooms+
+                  Electricity,
+                  data=data)
+housenb_data1%>%
+  summary()
+```
+
+The variable Electricity has big p-value, so we reduce this variable and refit the model.
+
+```{r}
+housenb_data2 <- glm.nb(Total.Number.of.Family.members~
+                  Total.Household.Income+
+                  Total.Food.Expenditure+
+                  Household.Head.Sex+
+                  Household.Head.Age+
+                  Type.of.Household+
+                  Total.Number.of.Family.members+
+                  House.Floor.Area+House.Age+
+                  Number.of.bedrooms,
+                  data=data)
+housenb_data2%>%
+  summary()
+```
+
+The variable Number.of.bedrooms has big p-value, so we reduce this variable and refit the model.
+
+```{r}
+housenb_data3 <- glm.nb(Total.Number.of.Family.members~
+                  Total.Household.Income+
+                  Total.Food.Expenditure+
+                  Household.Head.Sex+
+                  Household.Head.Age+
+                  Type.of.Household+
+                  Total.Number.of.Family.members+
+                  House.Floor.Area+
+                  House.Age,
+                  data=data)
+housenb_data3%>%
+  summary()
+```
+
+The variable Type.of.Household has big p-value, so we reduce this variable and refit the model.
+
+```{r}
+housenb_data4 <- glm.nb(Total.Number.of.Family.members~
+                  Total.Household.Income+
+                  Total.Food.Expenditure+
+                  Household.Head.Sex+
+                  Household.Head.Age+
+                  Total.Number.of.Family.members+
+                  House.Floor.Area+
+                  House.Age,
+                  data=data)
+housenb_data4%>%
+  summary()
+```
+
+The variable Household.Head.Age has big p-value, so we reduce this variable and refit the model.
+
+```{r}
+housenb_data5 <- glm.nb(Total.Number.of.Family.members~
+                  Total.Household.Income+
+                  Total.Food.Expenditure+
+                  Household.Head.Sex+
+                  Total.Number.of.Family.members+
+                  House.Floor.Area+
+                  House.Age,
+                  data=data)
+housenb_data5%>%
+  summary()
+```
+
+The variable House.Floor.Area has big p-value, so we reduce this variable and refit the model.
+
+```{r}
+housenb_data6 <- glm.nb(Total.Number.of.Family.members~
+                  Total.Household.Income+
+                  Total.Food.Expenditure+
+                  Household.Head.Sex+
+                  Total.Number.of.Family.members+
+                  House.Age,
+                  data=data)
+housenb_data6%>%
+  summary()
+```
+
+# Odds ratios
+
+```{r}
+plot_model(housenb_data2, show.values = TRUE,
+title = "", show.p = FALSE, value.offset = 0.25)
+```
+
+So the negative binomial regression method's result is the same as poisson.
