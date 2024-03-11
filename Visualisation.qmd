@@ -10,19 +10,32 @@ format:
 editor_options:
   chunk_output_type: inline
 execute:
-  echo: true
+  echo: false
   eval: true
   warning: false
   message: false
 ---
 
+```{=html}
+<style>
+figcaption {
+    text-align: center;
+}
+</style>
+```
+
+```{=latex}
+\usepackage{caption}
+\captionsetup[figure]{justification=centering}
+```
+
 ```{r}
+#| label: libraries
 library(tidyverse)
 library(moderndive)
 library(gapminder)
 library(sjPlot)
 library(stats)
-library(jtools)
 library(janitor)
 ```
 
@@ -37,18 +50,30 @@ household$Electricity <- as.factor(household$Electricity)
 ```
 
 ```{r}
-ggplot(data = household, aes(x = Total.Number.of.Family.members, y = Total.Household.Income, fill = Total.Number.of.Family.members, group = Total.Number.of.Family.members)) +
+#| label: fig-boxplot1
+#| fig-cap: "Boxplot of number of household members and annual income"
+#| fig-align: center
+#| message: false
+ggplot(data = household, aes(x = Total.Number.of.Family.members, y = Total.Household.Income, fill = Total.Number.of.Family.members, group = Total.Number.of.Family.members, )) +
 geom_boxplot() +
-labs(x = "the number of people living in a household", y = "Annual household income")
+labs(x = "the number of people living in a household", y = "Annual household income") +
 theme(legend.position = "none")
 ```
 
+The boxplot shows a trend of increasing annual household income with the number of people in a household, but there is some overlap in the IQR’s, and outliers are quite noticeable.
+
 ```{r}
+#| label: fig-boxplot2
+#| fig-cap: "Boxplot of number of household members and annual food expenditure"
+#| fig-align: center
+#| message: false
 ggplot(data = household, aes(x = Total.Number.of.Family.members, y = Total.Food.Expenditure, fill = Total.Number.of.Family.members, group = Total.Number.of.Family.members)) +
 geom_boxplot() +
-labs(x = "the number of people living in a household", y = "Annual expenditure by the household on food")
+labs(x = "the number of people living in a household", y = "Annual expenditure by the household on food") +
 theme(legend.position = "none")
 ```
+
+The boxplot illustrates that annual food expenditure increases with the number of people in a household. The increase is more pronounced when the household size is between 1 to 4 people. For households with 4 to 10 people, the median food expenditure growth begins to slow down. When the number of people in a household exceeds 10, the median annual food expenditure varies, with some increases and decreases, but there are relatively fewer outliers. The IQR indicates significant variation in food expenditures.
 
 ```{r}
 household %>%
@@ -59,17 +84,29 @@ adorn_ns() # To show original counts
 ```
 
 ```{r}
+#| label: fig-barplot1
+#| fig-cap: "Barplot of number of household members and sex of head of household"
+#| fig-align: center
+#| message: false
 ggplot(data = household, aes(x = Total.Number.of.Family.members, group = Household.Head.Sex)) +
-geom_bar(aes(y = ..prop.., fill = Household.Head.Sex), stat = "count", position = "dodge") +
-labs(x = "the number of people living in a household", y = "Proportion")
+geom_bar(aes(y = after_stat(prop), fill = Household.Head.Sex), stat = "count", position = "dodge") +
+labs(x = "the number of people living in a household", y = "Proportion of family members grouped by sex of household head")
 ```
 
+Regardless of whether the head of household is male or female, the overall trend in their proportion first increases and then decreases. The proportion of female heads of household peaks when the family size is 3 people, while the proportion of male heads of household peaks when the family size is 5 people.When the number of people in a household ranges from 1 to 3, the proportion of female heads of household is higher than that of male heads of household. When the household size exceeds 3 people, the proportion of male heads of household is generally higher than that of female heads of household.
+
 ```{r}
+#| label: fig-boxplot3
+#| fig-cap: "Boxplot of number of household members and head of the households age(in years)"
+#| fig-align: center
+#| message: false
 ggplot(data = household, aes(x = Total.Number.of.Family.members, y = Household.Head.Age, fill = Total.Number.of.Family.members, group = Total.Number.of.Family.members)) +
 geom_boxplot() +
-labs(x = "the number of people living in a household", y = "Head of the households age")
+labs(x = "the number of people living in a household", y = "Head of the households age")  +
 theme(legend.position = "none")
 ```
+
+The boxplot reveals that as the number of people in a household increases, the median age of the head of the household shows an overall trend of first decreasing and then increasing, but the change is not significant, essentially remaining within a certain age range.
 
 ```{r}
 household %>%
@@ -80,24 +117,42 @@ adorn_ns() # To show original counts
 ```
 
 ```{r}
+#| label: fig-barplot2
+#| fig-cap: "Barplot of number of household members and type of household"
+#| fig-align: center
+#| message: false
 ggplot(data = household, aes(x = Total.Number.of.Family.members, group = Type.of.Household)) +
-geom_bar(aes(y = ..prop.., fill = Type.of.Household), stat = "count", position = "dodge") +
-labs(x = "the number of people living in a household", y = "Proportion")
+geom_bar(aes(y = after_stat(prop), fill = Type.of.Household), stat = "count", position = "dodge") +
+labs(x = "the number of people living in a household", y = "Proportion of family members grouped by type of household")
 ```
 
+The proportions of both extended family and single family first increase and then decrease, with households comprising two or more nonrelated persons/members present only when the number of family members is 2, 3, 5, 6, 8, or 11. The proportion of extended family peaks when the household size is 6 people, while the proportion of single family peaks when the household size is 4 people.
+
 ```{r}
+#| label: fig-boxplot4
+#| fig-cap: "Boxplot of number of household members and floor area of the house(in $m^2$)"
+#| fig-align: center
+#| message: false
 ggplot(data = household, aes(x = Total.Number.of.Family.members, y = House.Floor.Area, fill = Total.Number.of.Family.members, group = Total.Number.of.Family.members)) +
 geom_boxplot() +
-labs(x = "the number of people living in a household", y = "Floor area of the house")
+labs(x = "the number of people living in a household", y = "Floor area of the house") +
 theme(legend.position = "none")
 ```
 
+The boxplot indicates that there is essentially no variation in house floor area across different household sizes, with a more significant difference only in households with more than 13 people. Additionally, there are outliers in house floor area for all household sizes.
+
 ```{r}
+#| label: fig-boxplot5
+#| fig-cap: "Boxplot of number of household members and age of the building (in years)"
+#| fig-align: center
+#| message: false
 ggplot(data = household, aes(x = Total.Number.of.Family.members, y = House.Age, fill = Total.Number.of.Family.members, group = Total.Number.of.Family.members)) +
 geom_boxplot() +
-labs(x = "the number of people living in a household", y = "Age of the building")
+labs(x = "the number of people living in a household", y = "Age of the building") +
 theme(legend.position = "none")
 ```
+
+The boxplot shows that there is no significant change in the age of buildings across households of different sizes. Only in households with 13 and 15 members is the age of the building noticeably younger.
 
 ```{r}
 household %>%
@@ -108,10 +163,16 @@ adorn_ns() # To show original counts
 ```
 
 ```{r}
+#| label: fig-barplot3
+#| fig-cap: "Barplot of number of household members and number of bedrooms"
+#| fig-align: center
+#| message: false
 ggplot(data = household, aes(x = Total.Number.of.Family.members, group = Number.of.bedrooms)) +
-geom_bar(aes(y = ..prop.., fill = Number.of.bedrooms), stat = "count", position = "dodge") +
-labs(x = "the number of people living in a household", y = "Proportion")
+geom_bar(aes(y = after_stat(prop), fill = Number.of.bedrooms), stat = "count", position = "dodge") +
+labs(x = "the number of people living in a household", y = "Proportion of family members grouped by number of bedrooms")
 ```
+
+The chart shows that, overall, the number of bedrooms tends to increase as the number of people living in a household increases.
 
 ```{r}
 household %>%
@@ -122,8 +183,13 @@ adorn_ns() # To show original counts
 ```
 
 ```{r}
+#| label: fig-barplot4
+#| fig-cap: "Barplot of number of household members and electricity (1=Yes, 0=No)"
+#| fig-align: center
+#| message: false
 ggplot(data = household, aes(x = Total.Number.of.Family.members, group = Electricity)) +
-geom_bar(aes(y = ..prop.., fill = Electricity), stat = "count", position = "dodge") +
-labs(x = "the number of people living in a household", y = "Proportion")
+geom_bar(aes(y = after_stat(prop), fill = Electricity), stat = "count", position = "dodge") +
+labs(x = "the number of people living in a household", y = "Proportion of family members grouped by electricity")
 ```
 
+The chart illustrates that, overall, as the number of people living in a household increases, the proportion of households without electricity decreases, while the number of households with electricity increases.
