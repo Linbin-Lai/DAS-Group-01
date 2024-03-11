@@ -10,7 +10,7 @@ format:
 editor_options:
   chunk_output_type: inline
 execute:
-  echo: false
+  echo: true
   eval: true
   warning: false
   message: false
