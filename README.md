@@ -1,4 +1,4 @@
-![Name the graph - Statistics maths quiz presentation](https://github.com/Linbin-Lai/DAS-Group-01/assets/162216504/f67ee2ea-2dce-4c01-9dbd-b806800d2543)
+![Name the graph - Statistics maths quiz presentation]([https://github.com/Linbin-Lai/DAS-Group-01/assets/162216504/f67ee2ea-2dce-4c01-9dbd-b806800d2543](https://github.com/Linbin-Lai/DAS-Group-01/assets/162216504/30000645-df9a-40f0-b365-a0ea9ea3a39a))
 
 <a href="https://github.com/Linbin-Lai/github-readme-stats">
   <img height=200 align="center" src="https://github-readme-stats.vercel.app/api?username=Linbin-Lai" />
