@@ -1,7 +1,7 @@
 ![header image](https://github.com/Linbin-Lai/DAS-Group-01/assets/162216504/9ee59bb0-3499-415b-a590-d0e10d3547f0)
 
 <a href="https://github.com/Linbin-Lai/github-readme-stats">
-  <img height=200  src="https://github-readme-stats.vercel.app/api?username=Linbin-Lai" />
+  <img height=100  src="https://github-readme-stats.vercel.app/api?username=Linbin-Lai" />
 </a>
 
 <a href="https://github.com/Linbin-Lai/github-readme-stats">
@@ -17,7 +17,7 @@
 </a>
 
 <a href="https://github.com/Linbin-Lai/github-readme-stats">
-  <img height=200 align="middle" src="https://github-readme-stats.vercel.app/api?username=YunlongZhao1" />
+  <img height=200  src="https://github-readme-stats.vercel.app/api?username=YunlongZhao1" />
 </a>
 
 <br>
