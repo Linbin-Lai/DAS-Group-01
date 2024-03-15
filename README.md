@@ -1,4 +1,4 @@
-<img src=“https://github.com/Linbin-Lai/DAS-Group-01/assets/162216504/98ee85ee-a359-4438-816a-914795a088fd”>
+<img src=“https://userimages.githubusercontent.com/75753187/123358567-aac7b900-d539-11eb-8275-0b380264bb4c.png” alt=“我的横幅”>
 
 <a href="https://github.com/Linbin-Lai/github-readme-stats">
   <img height=200 align="center" src="https://github-readme-stats.vercel.app/api?username=Linbin-Lai" />
