@@ -1,6 +1,6 @@
 ![Name the graph - Statistics maths quiz presentation](https://github.com/Linbin-Lai/DAS-Group-01/assets/162216504/f67ee2ea-2dce-4c01-9dbd-b806800d2543)
 
-![Anurag's GitHub stats](https://github-readme-stats.vercel.app/api?username=anuraghazra&hide=contribs,prs)
+[![Anurag 的 github 统计数据]（https://github-readme-stats.vercel.app/api?username=yushi1007）]（https://github.com/yushi1007）
 
 This is a group project for data analysis skills. The main goals are:
 
