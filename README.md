@@ -2,6 +2,7 @@
 
 ![Linbin's GitHub stats](https://github-readme-stats.vercel.app/api?username=Linbin-Lai&hide=contribs,prs)
 
+![Top Langs](https://github-readme-stats.vercel.app/api/top-langs/?username=Linbin-Lai&langs_count=8)
 This is a group project for data analysis skills. The main goals are:
 
 Which household related variables influence the number of people living in a household?
