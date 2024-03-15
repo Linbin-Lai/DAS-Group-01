@@ -20,8 +20,10 @@
   <img height=200 align="middle" src="https://github-readme-stats.vercel.app/api?username=YunlongZhao1" />
 </a>
 
-
-This is a group project for data analysis skills. The main goals are:
+<br>
+<br>
+<b><h2><center>Project Goal</center></h1></b>
+<br>
 
 Which household related variables influence the number of people living in a household?
 We should conduct an analysis to answer this question using a Generalised Linear Model (GLM). Following our 
