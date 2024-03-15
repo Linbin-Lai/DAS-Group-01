@@ -1,4 +1,4 @@
-<img src=“https://github.com/Linbin-Lai/DAS-Group-01/assets/162216504/08395a82-970e-40d4-90c1-954db09d6eab”>
+<img src=“https://github.com/Linbin-Lai/DAS-Group-01/assets/162216504/0dec9f11-f02c-4566-8bf7-080642f79900”>
 
 <a href="https://github.com/Linbin-Lai/github-readme-stats">
   <img height=200 align="center" src="https://github-readme-stats.vercel.app/api?username=Linbin-Lai" />
