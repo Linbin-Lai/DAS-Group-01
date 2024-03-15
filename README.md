@@ -32,3 +32,14 @@
 
 Our aim is to investigate the factors affecting household size using a Generalized Linear Model (GLM). We'll share our findings through a detailed presentation.
 
+
+<br>
+<br>
+<b><h2><center>Database file explanation</center></h1></b>
+<br>
+
+1. Group_1_Analysis ：Complete file containing all contents of the project.
+2. Group_1_Analysis_LB : File only include Forward Selection.
+3. Group_1_Analysis_backward_regression : File only include Backward Elimination.
+4. Visualisation.qmd : Visualized part of the code.
+5. dataset01.csv : code data set.
