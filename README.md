@@ -1,10 +1,10 @@
 ![Name the graph - Statistics maths quiz presentation](https://github.com/Linbin-Lai/DAS-Group-01/assets/162216504/f67ee2ea-2dce-4c01-9dbd-b806800d2543)
 
-<a href="https://github.com/anuraghazra/github-readme-stats">
-  <img height=200 align="center" src="https://github-readme-stats.vercel.app/api?username=anuraghazra" />
+<a href="https://github.com/Linbin-Lai/github-readme-stats">
+  <img height=200 align="center" src="https://github-readme-stats.vercel.app/api?username=Linbin-Lai" />
 </a>
 <a href="https://github.com/anuraghazra/convoychat">
-  <img height=200 align="center" src="https://github-readme-stats.vercel.app/api/top-langs?username=anuraghazra&layout=compact&langs_count=8&card_width=320" />
+  <img height=200 align="center" src="https://github-readme-stats.vercel.app/api/top-langs?username=Linbin-Lai&layout=compact&langs_count=8&card_width=320" />
 </a>
 
 ![Linbin's GitHub stats](https://github-readme-stats.vercel.app/api?username=Linbin-Lai&hide=contribs,prs)
