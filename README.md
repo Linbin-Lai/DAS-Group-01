@@ -1,4 +1,4 @@
-<img src=“https://userimages.githubusercontent.com/75753187/123358567-aac7b900-d539-11eb-8275-0b380264bb4c.png” alt=“我的横幅”>
+<img src=“"D:\Download\Black and Blue Learn Coding Flyer .png"”>
 
 <a href="https://github.com/Linbin-Lai/github-readme-stats">
   <img height=200 align="center" src="https://github-readme-stats.vercel.app/api?username=Linbin-Lai" />
