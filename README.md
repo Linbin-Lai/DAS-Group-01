@@ -1,3 +1,8 @@
+![Name the graph - Statistics maths quiz presentation](https://github.com/Linbin-Lai/DAS-Group-01/assets/162216504/f67ee2ea-2dce-4c01-9dbd-b806800d2543)
+
+<img src=“https://github.com/Linbin-Lai/DAS-Group-01/assets/162216504/f67ee2ea-2dce-4c01-9dbd-b806800d2543” alt=“我的横幅”>
+
+
 This is a group project for data analysis skills. The main goals are:
 
 Which household related variables influence the number of people living in a household?
