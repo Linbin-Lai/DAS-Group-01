@@ -209,7 +209,7 @@ From total household income and total food expenditure, their rate ratios is exa
 
 ### Result
 
-At last , we keep `Household.Head.Sex` and `Number.of.bedrooms` as explanatory variables: $$
+At last , we keep `Household.Head.Sex` as explanatory variables: $$
 Total.Number.of.Family.members = \beta_0 + \beta_1 \times \text{Household.Head.Sex}
 $$
 
