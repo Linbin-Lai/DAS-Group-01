@@ -1,5 +1,4 @@
-<img src=“https://github.com/Linbin-Lai/DAS-Group-01/assets/162216504/873b67ff-4c0c-4a6d-83c6-cefa12be336b”>
-![Black and Blue Learn Coding Flyer ](https://github.com/Linbin-Lai/DAS-Group-01/assets/162216504/873b67ff-4c0c-4a6d-83c6-cefa12be336b)
+https://github.com/Linbin-Lai/DAS-Group-01/assets/162216504/3afb1f0f-3c87-4f08-8740-cc46b1fa8a49
 
 <a href="https://github.com/Linbin-Lai/github-readme-stats">
   <img height=200 align="center" src="https://github-readme-stats.vercel.app/api?username=Linbin-Lai" />
