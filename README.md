@@ -4,7 +4,13 @@
   <img height=200 align="center" src="https://github-readme-stats.vercel.app/api?username=Linbin-Lai" />
 </a>
 
-[![Anurag's GitHub stats](https://github-readme-stats.vercel.app/api?username=Linbin-Lai)](https://github.com/anuraghazra/github-readme-stats)
+<a href="https://github.com/Linbin-Lai/github-readme-stats">
+  <img height=200 align="center" src="https://github-readme-stats.vercel.app/api?username=Vittoriayang" />
+</a>
+
+<a href="https://github.com/Linbin-Lai/github-readme-stats">
+  <img height=200 align="center" src="https://github-readme-stats.vercel.app/api?username=ZhenkaiGeng" />
+</a>
 
 This is a group project for data analysis skills. The main goals are:
 
