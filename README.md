@@ -25,7 +25,5 @@
 <b><h2><center>Project Goal</center></h1></b>
 <br>
 
-Which household related variables influence the number of people living in a household?
-We should conduct an analysis to answer this question using a Generalised Linear Model (GLM). Following our 
-analyses, we should then summarise results in the form of a presentation.
+Our aim is to investigate the factors affecting household size using a Generalized Linear Model (GLM). We'll share our findings through a detailed presentation.
 
