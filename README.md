@@ -2,7 +2,7 @@
 
 <img src=“https://github.com/Linbin-Lai/DAS-Group-01/assets/162216504/f67ee2ea-2dce-4c01-9dbd-b806800d2543”>
 
-
+<img alt=“反应” src=“https://img.shields.io/badge/react-%2320232a.svg?style=for-the-badge&logo=react&logoColor=%2361DAFB”/>
 This is a group project for data analysis skills. The main goals are:
 
 Which household related variables influence the number of people living in a household?
