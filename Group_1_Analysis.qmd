@@ -342,15 +342,16 @@ plot_model(house_data2, show.values = TRUE,
 title = "", show.p = FALSE, value.offset = 0.25)
 ```
 
-We interpret the odds ratios as follows: women’s odds of number of family members were 0.8 times those of man. For each unit change for Total.Household.Income, Total.Food.Expenditure,Household.Head.Age and House.Age the odds of number of family members do not change, which means they prove no effect on the number of family members.
+We interpret the odds ratios as follows: man’s odds of number of family members were 1.25 times those of women. For each unit change for Total.Household.Income, Total.Food.Expenditure,Household.Head.Age and House.Age the odds of number of family members do not change, which means they prove no effect on the number of family members.
 
 Therefore, the best model is:
 
-$$Total.Number.of.Family.members=\beta_0 + \beta_1* \cdot \mathbb{I}_{\text{Household.Head.SexFemale}}$$ $$=(1.533e+00)-(2.212e-01)\cdot \mathbb{I}_{\text{Household.Head.SexFemale}}$$
+$$Total.Number.of.Family.members=\beta_0 + \beta_1* \cdot \mathbb{I}_{\text{Household.Head.SexMale}}$$
+$$=(1.454e+00)+(2.212e-01)\cdot \mathbb{I}_{\text{Household.Head.SexMale}}$$
 
 $\mathbb{I}_i$ is is an indicator function such that representing each gender such that $$\mathbb{I}_i=\left\{
 \begin{array}{ll}
-1 ~~~ \mbox{if the household head is female},\\
+1 ~~~ \mbox{if the household head is male},\\
 0 ~~~ \mbox{Otherwise}.\\
 \end{array}
 \right.$$
