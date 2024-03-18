@@ -150,7 +150,7 @@ $$=(1.454e+00)+(2.212e-01)\cdot \mathbb{I}_{\text{Household.Head.SexMale}}$$
 
 $\mathbb{I}_i$ is is an indicator function such that representing each gender such that $$\mathbb{I}_i=\left\{
 \begin{array}{ll}
-1 ~~~ \mbox{if the household head is female},\\
+1 ~~~ \mbox{if the household head is male},\\
 0 ~~~ \mbox{Otherwise}.\\
 \end{array}
 \right.$$
